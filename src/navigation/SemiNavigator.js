@@ -8,7 +8,14 @@ import SignInScreen, {screenOptions as SignInScreenOptions} from '../screens/Sig
 import ForgotPasswordScreen, {screenOptions as ForgotPasswordScreenOptions} from '../screens/ForgotPasswordScreen';
 import SplashScreen, {screenOptions as SplashScreenOptions} from '../screens/SplashScreen';
 import HomeScreen, {screenOptions as HomeScreenOptions} from '../screens/HomeScreen';
-
+import DemoScreen, {screenOptions as DemoScreenOptions} from '../screens/DemoScreen';
+import CallScreen, {screenOptions as CallScreenOptions} from '../screens/CallScreen';
+import SearchScreen, {screenOptions as SearchScreenOptions} from '../screens/SearchScreen';
+import HealthBlogScreen, {screenOptions as HealthBlogScreenOptions} from '../screens/HealthBlogScreen';
+import DialScreen, {screenOptions as DialScreenOptions} from '../screens/DialScreen';
+import AccountScreen, {screenOptions as AccountScreenOptions} from '../screens/AccountScreen';
+import UserConformationScreen, {screenOptions as UserConformationScreenOptions} from '../screens/UserConformationScreen';
+import SamiTabNavigator from './SamiTabNavigator';
 const stack = createStackNavigator();
 
 const SemiNavigator = () =>{
@@ -44,6 +51,46 @@ const SemiNavigator = () =>{
                     name='Home'
                     component={HomeScreen}
                     options={HomeScreenOptions}
+                />
+                <stack.Screen
+                    name='Demo'
+                    component={DemoScreen}
+                    options={DemoScreenOptions}
+                />
+                <stack.Screen
+                    name='Call'
+                    component={CallScreen}
+                    options={CallScreenOptions}
+                />
+                <stack.Screen
+                    name='Search'
+                    component={SearchScreen}
+                    options={SearchScreenOptions}
+                />
+                <stack.Screen    
+                    name='HealthBlog'
+                    component={HealthBlogScreen}
+                    options={HealthBlogScreenOptions}
+                />
+                <stack.Screen
+                    name='Dial' 
+                    component={DialScreen}
+                    options={DialScreenOptions}
+                />
+                <stack.Screen
+                    name='Account'
+                    component={AccountScreen}
+                    options={AccountScreenOptions}
+                />
+                <stack.Screen
+                    name='SamiTab'
+                    component={SamiTabNavigator}
+                    options={{headerShown: false}}
+                />
+                <stack.Screen
+                    name='UserConformation'
+                    component={UserConformationScreen}
+                    options={UserConformationScreenOptions}
                 />
             </stack.Navigator>
         </NavigationContainer>

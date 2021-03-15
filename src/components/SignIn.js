@@ -3,7 +3,6 @@ import {View,StyleSheet,Text,ScrollView,TextInput, Dimensions,Button,TouchableOp
 import Colors from '../constants/Colors';
 import CustomButton from '../components/CustomButton';
 import CheckBox from '@react-native-community/checkbox';
-import * as Animatable from 'react-native-animatable';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -33,15 +32,16 @@ const formReducer = (state, action) => {
 const SignIn = props => {
     const [isRemember, setIsRemember] = useState(false);
     const [isTouchable, setIsTouchable] = useState(false);
-
+    const [isUsernameTouched, setIsUsernameTouched] = useState(false);
+    const [isPasswordTouched, setIsPasswordTouched] = useState(false);
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputValues: {
             username:'',
             password:''
         },
         inputValidities:{
-            username:true,
-            password:true
+            username:false,
+            password:false
         },
         formIsValid: false
     });
@@ -60,64 +60,59 @@ const SignIn = props => {
             return;
         }
         props.navigation.replace('Home')
-    },[formState]);
+    },[formState]); 
 
     return(
         <View style={styles.signInForm}>
             <ScrollView>
                 <Text style={styles.header}>Username</Text>
-                <Animatable.View animation='slideInRight' duration={2000} style={styles.animation}>
-                    <TextInput  
-                        placeholder='Enter Username' 
+                <TextInput  
+                    placeholder='Enter Username' 
+                    placeholderTextColor={Colors.placeholderColor}
+                    keyboardType='default'
+                    value={formState.inputValues.username}
+                    onChangeText={textChangeHandler.bind(this, 'username')}
+                    style={styles.textInput}
+                    onBlur={()=>setIsUsernameTouched(true)}
+                />
+                {!formState.inputValidities.username && isUsernameTouched && <Text style={{color:'red', marginLeft:20}}>Username is required!</Text>}
+                <Text style={styles.header}>Password</Text>
+                <View style={styles.passwordEnable}>
+                    <TextInput 
+                        style={styles.headerPasswordInput} 
+                        placeholder='Enter Password' 
                         placeholderTextColor={Colors.placeholderColor}
                         keyboardType='default'
-                        value={formState.inputValues.username}
-                        onChangeText={textChangeHandler.bind(this, 'username')}
+                        value={formState.inputValues.password}
+                        onChangeText={textChangeHandler.bind(this, 'password')}
+                        onBlur={()=>setIsPasswordTouched(true)}
                     />
-                </Animatable.View>
-                {!formState.inputValidities.username && <Text style={{color:'red', marginLeft:20}}>Username is required!</Text>}
-                <Text style={styles.header}>Password</Text>
-                <Animatable.View animation='slideInRight' duration={2000} style={styles.animation}>
-                    <View style={styles.passwordEnable}>
-                        <TextInput 
-                            style={styles.headerPasswordInput} 
-                            placeholder='Enter Password' 
-                            placeholderTextColor={Colors.placeholderColor}
-                            keyboardType='default'
-                            value={formState.inputValues.password}
-                            onChangeText={textChangeHandler.bind(this, 'password')}
-                        />
-                        <TouchableOpacity>
-                            <Image source={require('../../assets/images/preview-enable.png')} style={styles.previewEnable}/>
-                        </TouchableOpacity>
-                    </View>
-                </Animatable.View>
-                {!formState.inputValidities.password && <Text style={{color:'red', marginLeft:20}}>Password is required!</Text>}
+                    <TouchableOpacity>
+                        <Image source={require('../../assets/images/preview-enable.png')} style={styles.previewEnable}/>
+                    </TouchableOpacity>
+                </View>
+                {!formState.inputValidities.password && isPasswordTouched && <Text style={{color:'red', marginLeft:20}}>Password is required!</Text>}
                 <TouchableOpacity onPress={props.onForgot}>
                     <Text style={styles.forgotPassword}>Forgot Password ?</Text>
                 </TouchableOpacity>
-                <Animatable.View animation='slideInRight' duration={2000}>
-                    <View style={styles.checkboxForm}>
-                            <CheckBox 
-                                value={isRemember} 
-                                onValueChange={setIsRemember} 
-                                tintColors={{true: Colors.checkBoxTrue, false:Colors.primaryColor}}
-                                style={styles.checkBox}
-                            />
-                            <Text style={styles.checkBoxText}>Remember Username</Text>
-                    </View>
-                </Animatable.View>
-                <Animatable.View animation='slideInRight' duration={2000}>
-                    <View style={styles.checkboxForm}>
-                            <CheckBox 
-                                value={isTouchable} 
-                                onValueChange={setIsTouchable} 
-                                tintColors={{true: Colors.checkBoxTrue, false:Colors.primaryColor}}
-                                style={styles.checkBox}
-                            />
-                            <Text style={styles.checkBoxText}>Enable Touch ID</Text>
-                    </View>
-                </Animatable.View>
+                <View style={styles.checkboxForm}>
+                    <CheckBox 
+                        value={isRemember} 
+                        onValueChange={setIsRemember} 
+                        tintColors={{true: Colors.checkBoxTrue, false:Colors.primaryColor}}
+                        style={styles.checkBox}
+                    />
+                    <Text style={styles.checkBoxText}>Remember Username</Text>
+                </View>
+                <View style={styles.checkboxForm}>
+                    <CheckBox 
+                        value={isTouchable} 
+                        onValueChange={setIsTouchable} 
+                        tintColors={{true: Colors.checkBoxTrue, false:Colors.primaryColor}}
+                        style={styles.checkBox}
+                    />
+                    <Text style={styles.checkBoxText}>Enable Touch ID</Text>
+                </View>
                 <CustomButton title='SIGN IN' style={styles.signUpButton} onSelect={submitHandler}/>
             </ScrollView>
         </View>
@@ -132,7 +127,7 @@ const styles = StyleSheet.create({
         marginLeft:Dimensions.get('window').width / 22,
         marginTop:Dimensions.get('window').width / 20
     },
-    animation:{
+    textInput:{
         borderBottomColor:Colors.statusBar,
         borderBottomWidth: 1,
         width:'80%',
@@ -142,10 +137,10 @@ const styles = StyleSheet.create({
         marginBottom:15
     },
     headerPasswordInput:{
-        width:'60%',
-        marginRight:Dimensions.get('window').width / 10,
+        width:'80%',
+        marginRight:Dimensions.get('window').width / 20,
         fontSize: 15,
-        marginTop:10,
+        marginTop:10
     },
     signInForm:{
         height:'150%',
@@ -187,13 +182,14 @@ const styles = StyleSheet.create({
     passwordEnable:{
         flexDirection:'row',
         marginLeft:Dimensions.get('window').width / 25,
-        marginRight:Dimensions.get('window').width / 10
+        marginRight:Dimensions.get('window').width / 10,
+        borderBottomColor:Colors.statusBar,
+        borderBottomWidth: 1,
     },
     previewEnable:{
         width:30,
         height:25,
         marginTop:21,
-        marginLeft:33
     }
 });
 

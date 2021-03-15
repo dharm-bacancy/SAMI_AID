@@ -1,21 +1,17 @@
 import React from 'react';
 import {View,StyleSheet,Text,Image,ImageBackground,Dimensions,TouchableOpacity} from 'react-native';
 import Colors from '../constants/Colors';
+import Home from '../components/Home';
 
 const HomeScreen = props => {
     return(
         <View style={{flex:1}}>
             <ImageBackground source={require('../../assets/images/background_home.png')} style={{width:'100%', height:'100%'}}>
-                <Image source={require('../../assets/images/logo_sami_aid_white.png')} style={styles.logo}/>
-                {/* <Text style={styles.welcomeText}>WELCOME TO SAMI-AID</Text> */}
-                {/* <Text style={styles.subHeaderText}>Need to see a doctor? Don't worry about mystery pricing, because you have SAMI-AID!</Text> */}
-                {/* <CustomButton title='CREATE ACCOUNT' style={styles.account} onSelect={()=>props.navigation.replace('SignUp')}/> */}
-                {/* <View style={styles.singInAccount}>
-                    <Text style={styles.accountText}>Already have an account?</Text>
-                    <TouchableOpacity onPress={()=> props.navigation.navigate('SignIn')}>
-                        <Text style={styles.singIn}>Sign In</Text>
-                    </TouchableOpacity>
-                </View> */}
+                <Image source={require('../../assets/images/home_logo.png')} style={styles.logo}/>
+                <Text style={styles.welcomeText}>
+                    Welcome to the SAMI-Aid Mobile App. The SAMI-Aid team is here to help you navigate the complex world of healthcare. Your first step to a healthier life starts right here!
+                </Text>
+                <Home navigation={props.navigation}/>
             </ImageBackground>        
         </View>
     );
@@ -28,52 +24,20 @@ export const screenOptions= navData => {
 };
 
 const styles = StyleSheet.create({
-    // account:{
-    //     backgroundColor:Colors.primaryColor,
-    //     marginTop:Dimensions.get('window').height /25,
-    //     marginLeft:Dimensions.get('window').width /8.5,
-    //     width:Dimensions.get('window').width / 1.3,
-    //     justifyContent:'space-evenly',
-    //     alignItems:'center',
-    // },
     logo:{
-        height:78,
-        width:'80%',
-        marginTop:Dimensions.get('window').height /3.6,
-        marginLeft:Dimensions.get('window').width / 9
+        height:150,
+        width:192,
+        marginTop:Dimensions.get('window').height /13,
+        marginLeft:Dimensions.get('window').width / 3.8
     },
-    // welcomeText:{
-    //     fontFamily:'Gilroy-Bold',
-    //     fontSize:30,
-    //     marginTop:Dimensions.get('window').height /3.9,
-    //     marginLeft:Dimensions.get('window').width /9.5,
-    // },
-    // subHeaderText:{
-    //     alignItems:'center',
-    //     justifyContent:'center',
-    //     fontFamily:'Gilroy-Medium',
-    //     color:Colors.statusBar,
-    //     marginTop:Dimensions.get('window').width / 40,
-    //     fontSize: 15,
-    //     textAlign:'center',
-    //     marginHorizontal: '5%'
-    // },
-    // accountText:{
-    //     fontFamily:'Gilroy-Bold',
-    //     fontSize:20
-    // },
-    // singInAccount:{
-    //     flexDirection:'row',
-    //     marginTop:Dimensions.get('window').width / 20,
-    //     marginLeft:Dimensions.get('window').width / 10
-    // },
-    // singIn:{
-    //     color:Colors.blue,
-    //     fontSize: 20,
-    //     marginLeft: 10,
-    //     textDecorationLine:'underline',
-    //     fontFamily:'Gilroy-Heavy'
-    // }
+    welcomeText:{
+        fontFamily:'Gilroy-Bold',
+        color:'white',
+        marginTop:Dimensions.get('window').width / 11,
+        fontSize: 17,
+        textAlign:'center',
+        marginHorizontal: '5%'
+    },
 });
 
 export default HomeScreen;

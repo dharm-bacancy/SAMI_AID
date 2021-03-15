@@ -1,5 +1,6 @@
 import React from 'react';
 import {View,StyleSheet,Text,Image} from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 const SplashScreen = props => {
     setTimeout(() => {
@@ -7,7 +8,9 @@ const SplashScreen = props => {
     }, 2000);
     return(
         <View style={styles.splash}>
+            <Animatable.View  animation='fadeInUpBig'>
             <Image source={require('../../assets/images/logo_img.png')} style={{width:120, height:120}}/>
+            </Animatable.View>
         </View>
     );
 };

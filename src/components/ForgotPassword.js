@@ -2,7 +2,6 @@ import React, {useState,useReducer,useCallback} from 'react';
 import {View,StyleSheet,Text,ScrollView,TextInput, Dimensions,Button,TouchableOpacity,Image,Alert} from 'react-native';
 import Colors from '../constants/Colors';
 import CustomButton from '../components/CustomButton';
-import * as Animatable from 'react-native-animatable';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -62,16 +61,14 @@ const ForgotPassword = props => {
             <ScrollView>
                 <Text style={styles.header}>account reset</Text>
                 <Text style={styles.headerText}>Enter your email address and we will send you a link to reset your password.</Text>
-                <Animatable.View animation='slideInRight' duration={2000}>
-                    <TextInput 
-                        style={styles.headerInput} 
-                        placeholder='Enter Email' 
-                        placeholderTextColor={Colors.placeholderColor}
-                        keyboardType='default'
-                        value={formState.inputValues.email}
-                        onChangeText={textChangeHandler.bind(this, 'email')}
-                    />
-                </Animatable.View>
+                <TextInput 
+                    style={styles.headerInput} 
+                    placeholder='Enter Email' 
+                    placeholderTextColor={Colors.placeholderColor}
+                    keyboardType='default'
+                    value={formState.inputValues.email}
+                    onChangeText={textChangeHandler.bind(this, 'email')}
+                />
                 {!formState.inputValidities.email && <Text style={{color:'red', marginLeft:20}}>Email is required!</Text>}
                 <CustomButton title='SEND' style={styles.sendButton} onSelect={submitHandler}/>
             </ScrollView>

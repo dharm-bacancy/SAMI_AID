@@ -2,12 +2,15 @@ import React from 'react';
 import {View,StyleSheet,Text,ImageBackground,Image,Dimensions,TouchableOpacity} from 'react-native';
 import ForgotPassword from '../components/ForgotPassword';
 import Colors from '../constants/Colors';
+import * as Animatable from 'react-native-animatable';
 
 const ForgotPasswordScreen = props => {
     return(
         <View style={{flex:1}}>
             <ImageBackground source={require('../../assets/images/signin_background.png')} style={styles.signUpBackground}>
+            <Animatable.View  animation='pulse' easing="ease-out" iterationCount={3} style={styles.animation}>
                 <Image source={require('../../assets/images/logo_sami_aid_white.png')} style={styles.logo}/>
+            </Animatable.View>
                 <Text style={styles.loginLogo}>FORGOT PASSWORD</Text>
                 <ForgotPassword navigation={props.navigation}/>
             </ImageBackground>

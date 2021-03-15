@@ -2,12 +2,15 @@ import React from 'react';
 import {View,StyleSheet,Text,Image,ImageBackground,Dimensions,TouchableOpacity} from 'react-native';
 import CustomButton from '../components/CustomButton';
 import Colors from '../constants/Colors';
- 
+import * as Animatable from 'react-native-animatable';
+
 const WelcomeScreen = props => {
     return(
         <View style={{flex:1}}>
             <ImageBackground source={require('../../assets/images/welcomeimg.png')} style={{width:'100%', height:'100%'}}>
+            <Animatable.View  animation='zoomIn' >
                 <Image source={require('../../assets/images/logo_sami_aid_white.png')} style={styles.logo}/>
+            </Animatable.View>
                 <Text style={styles.welcomeText}>WELCOME TO SAMI-AID</Text>
                 <Text style={styles.subHeaderText}>Need to see a doctor? Don't worry about mystery pricing, because you have SAMI-AID!</Text>
                 <CustomButton title='CREATE ACCOUNT' style={styles.account} onSelect={()=>props.navigation.replace('SignUp')}/>
@@ -36,6 +39,7 @@ const styles = StyleSheet.create({
         width:Dimensions.get('window').width / 1.3,
         justifyContent:'space-evenly',
         alignItems:'center',
+        overflow:'hidden'
     },
     logo:{
         height:78,
