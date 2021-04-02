@@ -5,5 +5,8 @@ export default {
     placeholderColor: '#C4C4C6',
     blue: '#00AEEF',
     gray:'gray',
-    checkBoxTrue:'#F15927'
+    checkBoxTrue:'#F15927',
+    silver:'#C0C0C0',
+    lightGray:'#D3D3D3',
+    formColor:'#e1f5f5'
 };

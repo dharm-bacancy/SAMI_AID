@@ -99,7 +99,7 @@ const SignIn = props => {
                     <CheckBox 
                         value={isRemember} 
                         onValueChange={setIsRemember} 
-                        tintColors={{true: Colors.checkBoxTrue, false:Colors.primaryColor}}
+                        tintColors={{true: Colors.primaryColor, false:Colors.primaryColor}}
                         style={styles.checkBox}
                     />
                     <Text style={styles.checkBoxText}>Remember Username</Text>

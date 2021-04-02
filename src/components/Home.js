@@ -60,9 +60,9 @@ const Home = props => {
                 <HomeButton
                     image={require('../../assets/images/contact_img.png')}
                     title='Call SAMI-AID OR DIAL 911'
+                    style={{backgroundColor:selectedCat==='dial'?Colors.primaryColor :'white'}}
                     onSelect={()=>{setSelectedCat('dial')
                         props.navigation.navigate('Dial')}}
-                    style={{backgroundColor:selectedCat==='dial'?Colors.primaryColor :'white'}}
                     textStyle={{color:selectedCat==='dial' ? 'white':'black'}}
                 />
                 <HomeButton
@@ -70,7 +70,7 @@ const Home = props => {
                     title='MY SAMI-AID PROFILE'
                     style={{...styles.healthBlogButton, backgroundColor:selectedCat==='about'? Colors.primaryColor:'white'}}
                     onSelect={()=>{setSelectedCat('about')
-                        props.navigation.navigate('Account')}}
+                        props.navigation.navigate('SamiTab',{screen:'Account'})}}
                     textStyle={{color:selectedCat==='about' ? 'white':'black'}}
                 />
             </View>

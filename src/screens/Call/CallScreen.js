@@ -1,11 +1,11 @@
 import React from 'react';
 import {View,Text,TextInput,Image,ImageBackground,StyleSheet,Dimensions} from 'react-native';
-import Call from '../components/Call';
+import Call from '../../components/Call';
 const CallScreen = props => {
     return(
         <View style={{flex:1}}>
-            <ImageBackground source={require('../../assets/images/connectToMDback_image.png')} style={styles.callScreenBackground}>
-                <Image source={require('../../assets/images/home_logo.png')} style={styles.logo}/>
+            <ImageBackground source={require('../../../assets/images/connectToMDback_image.png')} style={styles.callScreenBackground}>
+                <Image source={require('../../../assets/images/home_logo.png')} style={styles.logo}/>
                 <Call navigation={props.navigation}/>
             </ImageBackground>
         </View>

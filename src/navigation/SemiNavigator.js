@@ -9,12 +9,19 @@ import ForgotPasswordScreen, {screenOptions as ForgotPasswordScreenOptions} from
 import SplashScreen, {screenOptions as SplashScreenOptions} from '../screens/SplashScreen';
 import HomeScreen, {screenOptions as HomeScreenOptions} from '../screens/HomeScreen';
 import DemoScreen, {screenOptions as DemoScreenOptions} from '../screens/DemoScreen';
-import CallScreen, {screenOptions as CallScreenOptions} from '../screens/CallScreen';
+import CallScreen, {screenOptions as CallScreenOptions} from '../screens/Call/CallScreen';
 import SearchScreen, {screenOptions as SearchScreenOptions} from '../screens/SearchScreen';
 import HealthBlogScreen, {screenOptions as HealthBlogScreenOptions} from '../screens/HealthBlogScreen';
 import DialScreen, {screenOptions as DialScreenOptions} from '../screens/DialScreen';
 import AccountScreen, {screenOptions as AccountScreenOptions} from '../screens/AccountScreen';
-import UserConformationScreen, {screenOptions as UserConformationScreenOptions} from '../screens/UserConformationScreen';
+import UserConformationScreen, {screenOptions as UserConformationScreenOptions} from '../screens/Call/UserConformationScreen';
+import PatientIntakeScreen, {screenOptions as PatientIntakeScreenOptions} from '../screens/Call/PatientIntakeScreen';
+import PatientAssessmentScreen, {screenOptions as PatientAssessmentScreenOptions} from '../screens/Call/PatientAssessmentScreen';
+import PatientAssessmentTimeScreen, {screenOptions as PatientAssessmentTimeScreenOptions} from '../screens/Call/PatientAssessmentTimeScreen';
+import PatientAssessmentFeelScreen, {screenOptions as PatientAssessmentFeelScreenOptions} from '../screens/Call/PatientAssessmentFeelScreen';
+import PatientAssessmentSymptomsScreen, {screenOptions as PatientAssessmentSymptomsScreenOptions} from '../screens/Call/PatientAssessmentSymptomsScreen';
+import PatientAssessmentInfoScreen, {screenOptions as PatientAssessmentInfoScreenOptions} from '../screens/Call/PatientAssessmentInfoScreen';
+import PatientConnectivityScreen, {screenOptions as PatientConnectivityScreenOptions} from '../screens/Call/PatientConnectivityScreen';
 import SamiTabNavigator from './SamiTabNavigator';
 const stack = createStackNavigator();
 
@@ -91,6 +98,41 @@ const SemiNavigator = () =>{
                     name='UserConformation'
                     component={UserConformationScreen}
                     options={UserConformationScreenOptions}
+                />
+                <stack.Screen
+                    name='PatientIntake'
+                    component={PatientIntakeScreen}
+                    options={PatientIntakeScreenOptions}
+                />
+                <stack.Screen
+                    name='PatientAssessment'
+                    component={PatientAssessmentScreen}
+                    options={PatientAssessmentScreenOptions}
+                />
+                <stack.Screen
+                    name='PatientAssessmentTime'
+                    component={PatientAssessmentTimeScreen}
+                    options={PatientAssessmentTimeScreenOptions}
+                />
+                <stack.Screen
+                    name='PatientAssessmentFeel'
+                    component={PatientAssessmentFeelScreen}
+                    options={PatientAssessmentFeelScreenOptions}
+                />
+                <stack.Screen
+                    name='PatientAssessmentSymptoms'
+                    component={PatientAssessmentSymptomsScreen}
+                    options={PatientAssessmentSymptomsScreenOptions}
+                />
+                <stack.Screen
+                    name='PatientAssessmentInfo'
+                    component={PatientAssessmentInfoScreen}
+                    options={PatientAssessmentInfoScreenOptions}
+                />
+                <stack.Screen
+                    name='PatientConnectivity'
+                    component={PatientConnectivityScreen}
+                    options={PatientConnectivityScreenOptions}
                 />
             </stack.Navigator>
         </NavigationContainer>

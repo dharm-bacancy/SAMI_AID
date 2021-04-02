@@ -5,7 +5,8 @@ import {Picker} from '@react-native-picker/picker';
 import moment from 'moment';
 import DateTimePicker  from '@react-native-community/datetimepicker';
 import CustomButton from '../components/CustomButton';
-
+import {useDispatch} from 'react-redux';
+import * as authActions from '../store/actions/auth';
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
 const formReducer = (state, action) => {
@@ -32,6 +33,8 @@ const formReducer = (state, action) => {
 };
 
 const SignUp = props => {
+    const dispatch = useDispatch();
+
     const [martialStatus, setMartialStatus] = useState('');
     const [language, setLanguage] = useState(false);
     const [date, setDate] = useState(new Date());
@@ -68,6 +71,28 @@ const SignUp = props => {
         formIsValid: false
     });
 
+    // const [formState, dispatchFormState] = useReducer(formReducer, {
+    //     inputValues: {
+    //         email:'',
+    //         password:''
+    //     },
+    //     inputValidities: {
+    //         email:false,
+    //         password: false
+    //     },
+    //     formIsValid: false
+    // });
+
+
+    const signupHandler = () =>{
+        dispatch(
+            authActions.signup(
+                formState.inputValues.email,
+                formState.inputValues.password
+            )
+        );
+    };
+
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
@@ -99,13 +124,13 @@ const SignUp = props => {
         dispatchFormState({type: FORM_INPUT_UPDATE, value:text, isValid: isValid, input: inputIdentifier});
     };
 
-    const submitHandler = ()=>{
+    const submitHandler = useCallback(()=>{
         if (!formState.formIsValid) {
             Alert.alert('All fields required !','Please fill all details', [{text: 'Okay'}]);
             return;
         }
         props.navigation.replace('Home')
-    };
+    },[formState]);
 
     return(
         <View style={styles.signUpForm}>
@@ -228,7 +253,8 @@ const SignUp = props => {
                     onBlur={()=>setIsCellphoneTouched(true)}
                 />
                 {!formState.inputValidities.cellPhone && isCellphoneTouched && <Text style={{color:'red', marginLeft:20}}>cell Phone Number is required!</Text>}
-                <CustomButton title='SIGN UP' style={styles.signUpButton} onSelect={submitHandler}/>
+                <CustomButton title='SIGN UP' style={styles.signUpButton} onSelect={signupHandler}/>
+                {/* <Button title='login' onPress={signupHandler}/> */}
             </ScrollView>
         </View>
     );
