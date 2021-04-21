@@ -1,7 +1,7 @@
 import React from 'react';
 import {View,Text,TextInput,Image,StyleSheet,Dimensions,ScrollView} from 'react-native';
 import Colors from '../../constants/Colors';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../../components/button/CustomButton';
 
 const PatientAssessmentInfoScreen = props => {
     return(
@@ -167,7 +167,6 @@ const styles = StyleSheet.create({
     },
     information:{
         backgroundColor:'white',
-        //marginHorizontal:'3%',
         borderRadius:10,
         borderWidth:1,
         paddingBottom:50,

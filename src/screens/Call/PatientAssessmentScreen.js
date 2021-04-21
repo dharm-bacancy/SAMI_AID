@@ -3,7 +3,7 @@ import {View,Text, TextInput,ImageBackground,Image,Dimensions,StyleSheet,FlatLis
 import {useSelector,useDispatch} from 'react-redux';
 import Colors from '../../constants/Colors';
 import PatientAssessment from '../../components/PatientAssessment';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../../components/button/CustomButton';
 
 const PatientAssessmentScreen = ({navigation,route}) =>{
     const illnessId = route.params.illnessId;

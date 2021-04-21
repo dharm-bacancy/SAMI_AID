@@ -1,11 +1,14 @@
 import React from 'react';
 import {StyleSheet,View} from 'react-native';
-import CustomButton from './CustomButton';
+import CustomButton from './button/CustomButton';
+import * as Animatable from 'react-native-animatable';
 
 const PatientIntake = props =>{
     return(
         <View>
+            <Animatable.View  animation='slideInDown'>
             <CustomButton style={styles.button} title={props.illnessesName} onSelect={props.onViewDetail}/>
+            </Animatable.View>
         </View>
     );
 };

@@ -1,10 +1,9 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {View,Text,TextInput,Image,StyleSheet,Dimensions,ScrollView,TouchableOpacity} from 'react-native';
 import Colors from '../../constants/Colors';
 import CustomButton from '../../components/button/CustomButton';
-import Icon from 'react-native-vector-icons/AntDesign';
 
-const PatientConnectivityScreen = props =>{
+const AppointmentScreen = props =>{
     return(
         <View style={{flex:1}}>
             <View style={{flexDirection:'row'}}>
@@ -16,8 +15,8 @@ const PatientConnectivityScreen = props =>{
                     <Text style={styles.assessmentText}>2</Text>
                 </View>
                 <Image source={require('../../../assets/images/unnamed.png')} style={styles.imageLine}/>
-                <View style={styles.patientCircle}>
-                    <Text style={styles.patientTextCircle}>3</Text>
+                <View style={styles.assessmentCircle}>
+                    <Text style={styles.assessmentText}>3</Text>
                 </View>
                 <Image source={require('../../../assets/images/unnamed.png')} style={styles.imageLine}/>
                 <View style={styles.otherCircle}>
@@ -27,50 +26,34 @@ const PatientConnectivityScreen = props =>{
             <View style={{flexDirection:'row', marginRight:'20%', marginTop:'2%'}}>
                 <Text style={styles.intakeText}>Patient{'\n'}Intake</Text>
                 <Text style={styles.assessment}>Patient{'\n'}Assessment</Text>
-                <Text style={styles.patientText}>Patient{'\n'}Connectivity</Text>
+                <Text style={styles.assessment}>Patient{'\n'}Connectivity</Text>
                 <Text style={styles.otherText}>Patient{'\n'}Connect</Text>
             </View>
             <ScrollView style={styles.patientConnectivityForm}>
-                <Text style={styles.headerText}>
-                    Dharm, let's get you {'\n'}taken care of: {'\n'}You're almost to the {'\n'}nurse's office
-                </Text>
+                <Text style={styles.ConfirmationText}>Your nurse will be calling {'\n'}you shortly.</Text>
                 <View style={styles.phoneBackground}>
                     <Image source={require('../../../assets/images/call.png')} style={styles.logo}/>
-                    <Text style={styles.logoText}>PHONE</Text>
-                </View>
-                <TouchableOpacity style={styles.promoCode}>
-                    <Icon name='tag' color={Colors.primaryColor} size={21}/>
-                    <Text style={styles.promoText}>Have a Promo Code?</Text>
-                </TouchableOpacity>
-                <Text style={styles.belowText}>What's the best number to reach at you during your visit?</Text>
-                <View>
-                    <Text style={styles.phoneText}>Phone Number</Text>
-                    <View style={styles.textInputView}>
-                        <TextInput
-                            placeholder='Cell Phone'
-                            keyboardType='numeric'
-                            maxLength={10}
-                        />
+                    <Text style={styles.logoText}>Estimated Provider callback time</Text>
+                    <View style={styles.time}>
+                        <Text style={styles.timeText}>About 30 min</Text>
                     </View>
                 </View>
-                <View>
-                    <Text style={styles.phoneText}>Email Address</Text>
-                    <View style={styles.textInputView}>
-                        <TextInput
-                            placeholder='Enter Email'
-                            keyboardType='email-address'
-                        />
-                    </View>
-                </View>
-                <View style={styles.button}>
-                    <CustomButton title='BACK' style={styles.backButton} styleButtonText={styles.backText} onSelect={()=>props.navigation.goBack()}/>
-                    <CustomButton 
-                        title='NEXT' 
+                <Text style={styles.visitText}>
+                    During the visit with your nurse, they will need {'\n'}to ask a few more questions to fully understand {'\n'}your situation. Please be in a quiet place without {'\n'}distractions to optimize the time with them. 
+                </Text>
+                <Text style={styles.emailText}>We will send updates to your email</Text>
+                <TextInput 
+                    style={styles.headerInput} 
+                    placeholder='Enter Email' 
+                    placeholderTextColor={Colors.placeholderColor}
+                    keyboardType='email-address'
+                />
+                <CustomButton 
+                        title='HOME SCREEN' 
                         style={styles.nextButton} 
                         styleButtonText={styles.nextText} 
-                        onSelect={()=>props.navigation.navigate('PaymentInfo')}
+                        onSelect={()=>props.navigation.navigate('Home')}
                     />
-                </View>
             </ScrollView>
         </View>
     );
@@ -103,17 +86,9 @@ const styles = StyleSheet.create({
         height:'105%', 
         marginTop:'5%', 
     },
-    patientCircle:{
-        borderRadius:100,
-        borderColor:'#FF4500',
-        borderWidth:2,
-        padding:10,
-        marginTop:'10%',
-        paddingHorizontal:20
-    },
     otherCircle:{
         borderRadius:100,
-        borderColor:'gray',
+        borderColor:'#FF4500',
         borderWidth:2,
         padding:10,
         marginTop:'10%',
@@ -127,11 +102,6 @@ const styles = StyleSheet.create({
         marginTop:'10%',
         paddingHorizontal:20
     },
-    patientTextCircle:{
-        fontSize:17,
-        color:'#FF4500',
-        fontFamily:'FiraSans-SemiBold'
-    },
     assessmentText:{
         fontSize:17,
         color:Colors.primaryColor,
@@ -139,7 +109,7 @@ const styles = StyleSheet.create({
     },
     otherTextCircle:{
         fontSize:17,
-        color:'gray',
+        color:'#FF4500',
         fontFamily:'FiraSans-SemiBold'
     },
     intakeText:{
@@ -149,13 +119,6 @@ const styles = StyleSheet.create({
         textAlign:'center',
         marginLeft:'2.5%'
     },
-    patientText:{
-        color:'#FF4500', 
-        fontFamily:'FiraSans-SemiBold', 
-        fontSize:17,
-        textAlign:'center',
-        marginLeft:30
-    },
     assessment:{
         color:Colors.primaryColor, 
         fontFamily:'FiraSans-SemiBold', 
@@ -164,7 +127,7 @@ const styles = StyleSheet.create({
         marginLeft:30
     },
     otherText:{
-        color:'gray', 
+        color:'#FF4500', 
         fontFamily:'FiraSans-SemiBold', 
         fontSize:17,
         textAlign:'center',
@@ -172,16 +135,18 @@ const styles = StyleSheet.create({
     },
     patientConnectivityForm:{
         width:'92%',
+        height:'78%',
         backgroundColor:Colors.formColor,
         marginLeft:Dimensions.get('window').width / 25,
         elevation:15,
         marginTop:'5%',
         borderRadius:10,
     },
-    headerText:{
+    ConfirmationText:{
         fontFamily:'Gilroy-Bold',
-        fontSize:23,
-        margin:'7%',
+        fontSize:25,
+        marginLeft:'6%',
+        marginTop:'7%'
     },
     phoneBackground:{
         borderColor:'gray',
@@ -189,7 +154,8 @@ const styles = StyleSheet.create({
         backgroundColor:'#F0F0F0',
         borderRadius:10,
         paddingVertical:'10%',
-        marginHorizontal:'6%'  
+        marginHorizontal:'6%',
+        marginTop:'6%'
     },
     logo:{
         alignSelf:'center'
@@ -200,66 +166,54 @@ const styles = StyleSheet.create({
         fontFamily:'Gilroy-Bold',
         textAlign:'center'
     },
-    promoCode:{
-        flexDirection:'row',
-        marginTop:'5%',
-        marginLeft:'7%'
-    },
-    promoText:{
-        color:Colors.primaryColor,
-        marginLeft:'3%',
-        fontSize:17,
-        fontFamily:'Gilroy-Medium'
-    },
-    belowText:{
-        marginHorizontal:'6%',
-        marginTop:'6%',
-        fontSize:16,
-        fontFamily:'Gilroy-Bold'
-    },
-    phoneText:{
-        color:'gray',
-        fontFamily:'Gilroy-Bold',
-        fontSize:17,
-        marginLeft:'6%',
-        marginTop:'4%',
-        marginBottom:'3%'
-    },
-    textInputView:{
-        borderRadius:10,
-        borderWidth:1,
+    time:{
+        height:60,
+        width:200,
         backgroundColor:'white',
-        //paddingHorizontal:'3%'
-        marginHorizontal:'6%'
-    },
-    button:{
-        flexDirection:'row',
-        marginLeft:'5%',
-        marginTop:'10%',
-        marginBottom:'10%'
-    },
-    backButton:{
-        backgroundColor:Colors.formColor,
-        height:55,
-        width:150,
-        borderRadius:5,
-        marginRight:'5%',
         borderColor:Colors.lightGray,
-        borderWidth:2
+        borderRadius:7,
+        borderWidth:1,
+        marginLeft:'20%',
+        marginTop:'7%'
+    },
+    timeText:{
+        fontFamily:'FiraSans-SemiBold',
+        fontSize:25,
+        marginVertical:'4%',
+        marginHorizontal:'10%'
+    },
+    visitText:{
+        fontSize:16.5,
+        fontFamily:'FiraSans-MediumItalic',
+        textAlign:'center',
+        marginTop:'5%'
+    },
+    emailText:{
+        marginTop:'10%',
+        fontSize:18,
+        fontFamily:'Gilroy-Bold',
+        marginLeft:'5%'
+    },
+    headerInput:{
+        borderBottomColor:Colors.lightGray,
+        borderBottomWidth: 3,
+        width:'80%',
+        marginLeft:Dimensions.get('window').width / 22,
+        fontSize: 14,
+        marginTop:10,
+        //marginBottom:15
     },
     nextButton:{
         backgroundColor:Colors.primaryColor,
         height:55,
-        width:150,
+        width:300,
         borderRadius:5,
-        marginLeft:'10%'
-    },
-    backText:{
-        color:'gray'
+        marginLeft:'10%',
+        marginVertical:"10%"
     },
     nextText:{
         color:'white'
     }
 });
 
-export default PatientConnectivityScreen;
+export default AppointmentScreen;

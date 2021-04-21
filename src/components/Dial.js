@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {StyleSheet,View,Text,Dimensions,Image,ScrollView} from 'react-native';
 import Colors from '../constants/Colors';
-import CallButton from './CallButton';
+import CallButton from './button/CallButton';
 const Dial = props =>{
     return(
         <View style={styles.dialButton}>

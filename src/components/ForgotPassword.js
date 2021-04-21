@@ -1,7 +1,7 @@
 import React, {useState,useReducer,useCallback} from 'react';
 import {View,StyleSheet,Text,ScrollView,TextInput, Dimensions,Button,TouchableOpacity,Image,Alert} from 'react-native';
 import Colors from '../constants/Colors';
-import CustomButton from '../components/CustomButton';
+import CustomButton from './button/CustomButton';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 

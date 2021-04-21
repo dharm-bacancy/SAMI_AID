@@ -2,8 +2,8 @@ import React,{useState} from 'react';
 import {View,Text,TextInput,Image,StyleSheet,Dimensions,ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 import Colors from '../../constants/Colors';
-import CustomRedioButton from '../../components/CustomRedioButton';
-import CustomButton from '../../components/CustomButton';
+import CustomRedioButton from '../../components/button/CustomRedioButton';
+import CustomButton from '../../components/button/CustomButton';
 import CheckBox from '@react-native-community/checkbox';
 
 const PatientAssessmentSymptomsScreen = ({navigation,route}) =>{

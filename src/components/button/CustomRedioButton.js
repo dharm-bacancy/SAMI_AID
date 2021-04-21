@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet,View,Text,TouchableOpacity} from 'react-native';
-import Colors from '../constants/Colors';
+import Colors from '../../constants/Colors';
 
 const CustomRedioButton = props =>{
     return(

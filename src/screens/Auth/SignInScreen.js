@@ -1,22 +1,26 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {View,StyleSheet,Text,ImageBackground,Image,Dimensions,TouchableOpacity} from 'react-native';
-import SignUp from '../components/SignUp';
-import Colors from '../constants/Colors';
+import SignIn from '../../components/SignIn';
+import Colors from '../../constants/Colors';
 import * as Animatable from 'react-native-animatable';
 
-const SignUpScreen = props => {
+const SignInScreen = props => {
     return(
         <View style={{flex:1}}>
-            <ImageBackground source={require('../../assets/images/signin_background.png')} style={styles.signUpBackground}>
+            <ImageBackground source={require('../../../assets/images/signin_background.png')} style={styles.signUpBackground}>
             <Animatable.View  animation='pulse' easing="ease-out" iterationCount={3} style={styles.animation}>
-                <Image source={require('../../assets/images/logo_sami_aid_white.png')} style={styles.logo}/>
+                <Image source={require('../../../assets/images/logo_sami_aid_white.png')} style={styles.logo}/>
             </Animatable.View>
-                <Text style={styles.signUpLogo}>SIGN UP</Text>
-                <SignUp navigation={props.navigation} />
+                <Text style={styles.loginLogo}>LOGIN</Text>
+                <SignIn
+                    //onPress={()=>props.navigation.replace('Home')} 
+                    navigation={props.navigation}
+                    onForgot={()=>props.navigation.replace('ForgotPassword')}
+                />
                 <View style={styles.singInAccount}>
-                    <Text style={styles.accountText}>Existing User?</Text>
-                    <TouchableOpacity onPress={()=>props.navigation.navigate('SignIn')}>
-                        <Text style={styles.singIn}>Sign In</Text>
+                    <Text style={styles.accountText}>New User?</Text>
+                    <TouchableOpacity onPress={()=>props.navigation.navigate('SignUp')}>
+                        <Text style={styles.singIn}>Create an account</Text>
                     </TouchableOpacity>
                 </View>
             </ImageBackground>
@@ -35,6 +39,7 @@ const styles = StyleSheet.create({
         width:'100%',
         height:350,
         flex:1,
+        resizeMode:'contain'
     },
     logo:{
         height:78,
@@ -42,12 +47,13 @@ const styles = StyleSheet.create({
         marginTop:Dimensions.get('window').height /13,
         marginLeft:Dimensions.get('window').width / 9
     },
-    signUpLogo:{
+    loginLogo:{
         color:'white',
         fontSize:37,
         fontFamily:'Gilroy-Bold',
-        marginTop:Dimensions.get('window').height /22,
-        marginLeft:Dimensions.get('window').width / 3.1
+        marginTop:Dimensions.get('window').height /25,
+        marginBottom: 4,
+        marginLeft:Dimensions.get('window').width / 2.7
     },
     accountText:{
         fontFamily:'Gilroy-Bold',
@@ -68,4 +74,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SignUpScreen;
+export default SignInScreen;

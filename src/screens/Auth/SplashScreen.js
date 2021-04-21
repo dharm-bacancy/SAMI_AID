@@ -9,7 +9,7 @@ const SplashScreen = props => {
     return(
         <View style={styles.splash}>
             <Animatable.View  animation='fadeInUpBig'>
-            <Image source={require('../../assets/images/logo_img.png')} style={{width:120, height:120}}/>
+                <Image source={require('../../../assets/images/logo_img.png')} style={{width:120, height:120}}/>
             </Animatable.View>
         </View>
     );

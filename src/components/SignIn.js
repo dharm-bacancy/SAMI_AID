@@ -1,10 +1,12 @@
-import React, {useState,useReducer,useCallback} from 'react';
+import React, {useState,useReducer,useCallback,useEffect} from 'react';
 import {View,StyleSheet,Text,ScrollView,TextInput, Dimensions,Button,TouchableOpacity,Image,Alert} from 'react-native';
 import Colors from '../constants/Colors';
-import CustomButton from '../components/CustomButton';
+import CustomButton from './button/CustomButton';
 import CheckBox from '@react-native-community/checkbox';
-
+import Input from './Input';
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
+import {useDispatch} from 'react-redux';
+import * as authAction from '../store/actions/auth'; 
 
 const formReducer = (state, action) => {
     if (action.type === FORM_INPUT_UPDATE) {
@@ -30,21 +32,65 @@ const formReducer = (state, action) => {
 };
 
 const SignIn = props => {
+    const dispatch = useDispatch();
+    const [isloading, setIsloading] = useState(false);
+    const [isSignup, setIsSignup] = useState(false);
+    const [error, setError] = useState();
     const [isRemember, setIsRemember] = useState(false);
     const [isTouchable, setIsTouchable] = useState(false);
     const [isUsernameTouched, setIsUsernameTouched] = useState(false);
     const [isPasswordTouched, setIsPasswordTouched] = useState(false);
+
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputValues: {
-            username:'',
+            email:'',
             password:''
         },
         inputValidities:{
-            username:false,
+            email:false,
             password:false
         },
         formIsValid: false
     });
+
+    useEffect(()=>{
+        if (error) {
+            Alert.alert('An Error Occurred!', error, [{text:'Okay'}]);
+        }
+    }, [error]);
+
+    // const authHandler = async () =>{
+    //     let action;
+    //     if (isSignup) {
+    //         action = authAction.signup(
+    //             formState.inputValues.email,
+    //             formState.inputValues.password
+    //         ); 
+    //     } else {
+    //         action = authAction.login(
+    //             formState.inputValues.email,
+    //             formState.inputValues.password
+    //         );
+    //     }
+    //     setError(null);
+    //     setIsloading(true);
+    //     try {
+    //         await dispatch(action);
+    //         props.navigation.replace('Welcome');
+    //     } catch (err) {
+    //         setError(err.message);
+    //         setIsloading(false);
+    //     }
+    // };
+
+    const inputChageHandler = useCallback((inputIdentifier, inputValue, inputValidity) => {
+        dispatchFormState({
+            type: FORM_INPUT_UPDATE, 
+            value: inputValue, 
+            isValid: inputValidity,
+            input: inputIdentifier
+        });
+    }, [dispatchFormState]);
 
     const textChangeHandler = (inputIdentifier, text) => {
         let isValid = false;
@@ -54,20 +100,60 @@ const SignIn = props => {
         dispatchFormState({type: FORM_INPUT_UPDATE, value:text, isValid: isValid, input: inputIdentifier});
     };
 
+    // const submitHandler = useCallback(()=>{
+    //     if (!formState.formIsValid) {
+    //         Alert.alert('All fields required !','Please fill all details', [{text: 'Okay'}]);
+    //         return;
+    //     }
+    //     props.navigation.replace('Home')
+    // },[formState]); 
+
     const submitHandler = useCallback(()=>{
+        let action;
+        dispatch(
+            action = authAction.login(
+                formState.inputValues.email,
+                formState.inputValues.password
+            )
+        );
         if (!formState.formIsValid) {
             Alert.alert('All fields required !','Please fill all details', [{text: 'Okay'}]);
             return;
         }
         props.navigation.replace('Home')
-    },[formState]); 
+    },[formState]);
 
     return(
         <View style={styles.signInForm}>
             <ScrollView>
-                <Text style={styles.header}>Username</Text>
-                <TextInput  
-                    placeholder='Enter Username' 
+            <Input
+                        id='email'
+                        label='Email'
+                        keyboardType='email-address'
+                        required
+                        email
+                        autoCapitalized='none'
+                        errorText='Please enter valid email address'
+                        onInputChange={inputChageHandler}
+                        initialValue=''
+                        placeholder='Enter Email'
+                    />
+                <Input
+                        id='password'
+                        label='Password'
+                        keyboardType='default'
+                        secureTextEntry
+                        required
+                        minLength={5}
+                        autoCapitalized='none'
+                        errorText='Please enter valid password'
+                        onInputChange={inputChageHandler}
+                        initialValue=''
+                        placeholder='Enter Password'
+                    />
+                {/* <Text style={styles.header}>Email</Text> */}
+                {/* <TextInput  
+                    placeholder='Enter Email' 
                     placeholderTextColor={Colors.placeholderColor}
                     keyboardType='default'
                     value={formState.inputValues.username}
@@ -91,7 +177,7 @@ const SignIn = props => {
                         <Image source={require('../../assets/images/preview-enable.png')} style={styles.previewEnable}/>
                     </TouchableOpacity>
                 </View>
-                {!formState.inputValidities.password && isPasswordTouched && <Text style={{color:'red', marginLeft:20}}>Password is required!</Text>}
+                {!formState.inputValidities.password && isPasswordTouched && <Text style={{color:'red', marginLeft:20}}>Password is required!</Text>} */}
                 <TouchableOpacity onPress={props.onForgot}>
                     <Text style={styles.forgotPassword}>Forgot Password ?</Text>
                 </TouchableOpacity>

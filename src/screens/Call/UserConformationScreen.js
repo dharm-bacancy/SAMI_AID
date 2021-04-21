@@ -1,7 +1,7 @@
 import React from 'react';
 import {View,Text,Image,StyleSheet,ImageBackground,Dimensions,TouchableOpacity} from 'react-native';
 import Colors from '../../constants/Colors';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../../components/button/CustomButton';
 
 const UserConformationScreen = props => {
     return(

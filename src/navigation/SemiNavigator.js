@@ -2,15 +2,15 @@ import React from 'react';
 import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import WelcomeScreen, {screenOptions as WelcomeScreenOptions} from '../screens/WelcomeScreen';
-import SignUpScreen, {screenOptions as SignUpScreenOptions} from '../screens/SignUpScreen';
-import SignInScreen, {screenOptions as SignInScreenOptions} from '../screens/SignInScreen';
+import WelcomeScreen, {screenOptions as WelcomeScreenOptions} from '../screens/Auth/WelcomeScreen';
+import SignUpScreen, {screenOptions as SignUpScreenOptions} from '../screens/Auth/SignUpScreen';
+import SignInScreen, {screenOptions as SignInScreenOptions} from '../screens/Auth/SignInScreen';
 import ForgotPasswordScreen, {screenOptions as ForgotPasswordScreenOptions} from '../screens/ForgotPasswordScreen';
-import SplashScreen, {screenOptions as SplashScreenOptions} from '../screens/SplashScreen';
+import SplashScreen, {screenOptions as SplashScreenOptions} from '../screens/Auth/SplashScreen';
 import HomeScreen, {screenOptions as HomeScreenOptions} from '../screens/HomeScreen';
 import DemoScreen, {screenOptions as DemoScreenOptions} from '../screens/DemoScreen';
 import CallScreen, {screenOptions as CallScreenOptions} from '../screens/Call/CallScreen';
-import SearchScreen, {screenOptions as SearchScreenOptions} from '../screens/SearchScreen';
+import SearchScreen, {screenOptions as SearchScreenOptions} from '../screens/Search/SearchScreen';
 import HealthBlogScreen, {screenOptions as HealthBlogScreenOptions} from '../screens/HealthBlogScreen';
 import DialScreen, {screenOptions as DialScreenOptions} from '../screens/DialScreen';
 import AccountScreen, {screenOptions as AccountScreenOptions} from '../screens/AccountScreen';
@@ -22,6 +22,10 @@ import PatientAssessmentFeelScreen, {screenOptions as PatientAssessmentFeelScree
 import PatientAssessmentSymptomsScreen, {screenOptions as PatientAssessmentSymptomsScreenOptions} from '../screens/Call/PatientAssessmentSymptomsScreen';
 import PatientAssessmentInfoScreen, {screenOptions as PatientAssessmentInfoScreenOptions} from '../screens/Call/PatientAssessmentInfoScreen';
 import PatientConnectivityScreen, {screenOptions as PatientConnectivityScreenOptions} from '../screens/Call/PatientConnectivityScreen';
+import PaymentInfoScreen, {screenOptions as PaymentInfoScreenOptions} from '../screens/Call/PaymentInfoScreen';
+import ConfirmationScreen, {screenOptions as ConfirmationScreenOptions} from '../screens/Call/ConfirmationScreen';
+import AppointmentScreen, {screenOptions as AppointmentScreenOptions} from '../screens/Call/AppointmentScreen';
+import AuthScreen, {screenOptions as AuthScreenOptions} from '../screens/AuthScreen';
 import SamiTabNavigator from './SamiTabNavigator';
 const stack = createStackNavigator();
 
@@ -29,6 +33,11 @@ const SemiNavigator = () =>{
     return(
         <NavigationContainer>
             <stack.Navigator initialRouteName='Splash'>
+                <stack.Screen
+                    name='Auth'
+                    component={AuthScreen}
+                    options={AuthScreenOptions}
+                />
                 <stack.Screen
                     name='SignUp'
                     component={SignUpScreen}
@@ -133,6 +142,21 @@ const SemiNavigator = () =>{
                     name='PatientConnectivity'
                     component={PatientConnectivityScreen}
                     options={PatientConnectivityScreenOptions}
+                />
+                <stack.Screen
+                    name='PaymentInfo'
+                    component={PaymentInfoScreen}
+                    options={PaymentInfoScreenOptions}
+                />
+                <stack.Screen
+                    name='Confirmation'
+                    component={ConfirmationScreen}
+                    options={ConfirmationScreenOptions}
+                />
+                <stack.Screen
+                    name='Appointment'
+                    component={AppointmentScreen}
+                    options={AppointmentScreenOptions}
                 />
             </stack.Navigator>
         </NavigationContainer>

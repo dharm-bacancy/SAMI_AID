@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet,View,Text} from 'react-native';
-import CustomButton from './CustomButton';
+import CustomButton from './button/CustomButton';
 import Colors from '../constants/Colors';
 
 const PatientAssessment = props =>{

@@ -1,7 +1,7 @@
 import React, {useState,useReducer,useCallback,useEffect} from 'react';
 import {View,StyleSheet,Text,ScrollView,TextInput, Dimensions,Button,TouchableOpacity,Image,Alert} from 'react-native';
 import Colors from '../constants/Colors';
-import HomeButton from './HomeButton';
+import HomeButton from './button/HomeButton';
 import * as Animatable from 'react-native-animatable';
 
 const Home = props => {

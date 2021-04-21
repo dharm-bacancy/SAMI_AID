@@ -1,13 +1,14 @@
-import React, {useState,useCallback,useReducer} from 'react';
-import {View,StyleSheet,Text,ScrollView,TextInput, Dimensions,Button,TouchableOpacity,Alert} from 'react-native';
+import React, {useState,useCallback,useReducer,useEffect} from 'react';
+import {View,StyleSheet,Text,ScrollView,TextInput, Dimensions,Button,TouchableOpacity,Alert,ActivityIndicator} from 'react-native';
 import Colors from '../constants/Colors';
 import {Picker} from '@react-native-picker/picker';
 import moment from 'moment';
 import DateTimePicker  from '@react-native-community/datetimepicker';
-import CustomButton from '../components/CustomButton';
+import CustomButton from './button/CustomButton';
 import {useDispatch} from 'react-redux';
-import * as authActions from '../store/actions/auth';
+import * as authAction from '../store/actions/auth';
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
+import Input from './Input';
 
 const formReducer = (state, action) => {
     if (action.type === FORM_INPUT_UPDATE) {
@@ -34,6 +35,9 @@ const formReducer = (state, action) => {
 
 const SignUp = props => {
     const dispatch = useDispatch();
+    const [isloading, setIsloading] = useState(false);
+    const [isSignup, setIsSignup] = useState(false);
+    const [error, setError] = useState();
 
     const [martialStatus, setMartialStatus] = useState('');
     const [language, setLanguage] = useState(false);
@@ -71,27 +75,14 @@ const SignUp = props => {
         formIsValid: false
     });
 
-    // const [formState, dispatchFormState] = useReducer(formReducer, {
-    //     inputValues: {
-    //         email:'',
-    //         password:''
-    //     },
-    //     inputValidities: {
-    //         email:false,
-    //         password: false
-    //     },
-    //     formIsValid: false
-    // });
-
-
-    const signupHandler = () =>{
-        dispatch(
-            authActions.signup(
-                formState.inputValues.email,
-                formState.inputValues.password
-            )
-        );
-    };
+    const inputChageHandler = useCallback((inputIdentifier, inputValue, inputValidity) => {
+        dispatchFormState({
+            type: FORM_INPUT_UPDATE, 
+            value: inputValue, 
+            isValid: inputValidity,
+            input: inputIdentifier
+        });
+    }, [dispatchFormState]);
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -125,6 +116,13 @@ const SignUp = props => {
     };
 
     const submitHandler = useCallback(()=>{
+        let action;
+        dispatch(
+            action = authAction.signup(
+                formState.inputValues.email,
+                formState.inputValues.password
+            )
+        );
         if (!formState.formIsValid) {
             Alert.alert('All fields required !','Please fill all details', [{text: 'Okay'}]);
             return;
@@ -157,29 +155,32 @@ const SignUp = props => {
                     onChangeText={textChangeHandler.bind(this, 'lastName')}
                     onBlur={()=>setIsLastNameTouched(true)}
                 />
-                {!formState.inputValidities.lastName && isLastNameTouched && <Text style={{color:'red', marginLeft:20}}>Last Name is required!</Text>}
-                <Text style={styles.header}>Email</Text>
-                <TextInput 
-                    style={styles.headerInput} 
-                    placeholder='Enter Email' 
-                    placeholderTextColor={Colors.placeholderColor}
-                    keyboardType='email-address'
-                    value={formState.inputValues.email}
-                    onChangeText={textChangeHandler.bind(this, 'email')}
-                    onBlur={()=>setIsEmailTouched(true)}
-                />
-                {!formState.inputValidities.email && isEmailTouched && <Text style={{color:'red', marginLeft:20}}>Email is required!</Text>}
-                <Text style={styles.header}>Password</Text>
-                <TextInput 
-                    style={styles.headerInput} 
-                    placeholder='Enter Password' 
-                    placeholderTextColor={Colors.placeholderColor}
-                    keyboardType='default'
-                    value={formState.inputValues.password}
-                    onChangeText={textChangeHandler.bind(this, 'password')}
-                    onBlur={()=>setIsPasswordTouched(true)}
-                />
-                {!formState.inputValidities.password && isPasswordTouched && <Text style={{color:'red', marginLeft:20}}>Password is required!</Text>}
+                {!formState.inputValidities.lastName && isLastNameTouched && <Text style={{color:'red', marginLeft:20}}>Last Name is required!</Text>} 
+                <Input
+                        id='email'
+                        label='Email'
+                        keyboardType='email-address'
+                        required
+                        email
+                        autoCapitalized='none'
+                        errorText='Please enter valid email address'
+                        onInputChange={inputChageHandler}
+                        initialValue=''
+                        placeholder='Enter Email'
+                    />
+                <Input
+                        id='password'
+                        label='Password'
+                        keyboardType='default'
+                        secureTextEntry
+                        required
+                        minLength={5}
+                        autoCapitalized='none'
+                        errorText='Please enter valid password'
+                        onInputChange={inputChageHandler}
+                        initialValue=''
+                        placeholder='Enter Password'
+                    />
                 <Text style={styles.header}>Confirm Password</Text>
                 <TextInput 
                     style={styles.headerInput} 
@@ -189,6 +190,7 @@ const SignUp = props => {
                     value={formState.inputValues.confirmPassword}
                     onChangeText={textChangeHandler.bind(this, 'confirmPassword')}
                     onBlur={()=>setIsConfirmPasswordTouched(true)}
+                    secureTextEntry
                 />
                 {!formState.inputValidities.confirmPassword && isConfirmPasswordTouched && <Text style={{color:'red', marginLeft:20}}>Confirm Password is required!</Text>}
                 <Text style={styles.header}>Address</Text>
@@ -253,8 +255,7 @@ const SignUp = props => {
                     onBlur={()=>setIsCellphoneTouched(true)}
                 />
                 {!formState.inputValidities.cellPhone && isCellphoneTouched && <Text style={{color:'red', marginLeft:20}}>cell Phone Number is required!</Text>}
-                <CustomButton title='SIGN UP' style={styles.signUpButton} onSelect={signupHandler}/>
-                {/* <Button title='login' onPress={signupHandler}/> */}
+                <CustomButton title='SIGN UP' style={styles.signUpButton} onSelect={submitHandler}/>
             </ScrollView>
         </View>
     );

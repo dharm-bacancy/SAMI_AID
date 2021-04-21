@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import {View,Text,StyleSheet,Image,Dimensions} from 'react-native';
-import CallButton from './CallButton';
+import CallButton from './button/CallButton';
 import * as Animatable from 'react-native-animatable';
 import Colors from '../constants/Colors';
 
@@ -16,6 +16,7 @@ const Call = props =>{
     return(
         <View style={styles.callButton}>
             <View style={styles.button}>
+            <Animatable.View  animation='zoomIn'>
                 <CallButton
                     image={require('../../assets/images/md_img.png')}
                     title='Speak to Doctor'
@@ -24,6 +25,8 @@ const Call = props =>{
                         props.navigation.navigate('UserConformation')}}
                     textStyle={{color:selectedCat==='speakToDoctor' ? 'white':'black'}}
                 />
+                </Animatable.View>
+                <Animatable.View  animation='zoomIn'>
                 <CallButton
                     image={require('../../assets/images/contact_img_white.png')}
                     title='Speak to Nurse'
@@ -33,6 +36,8 @@ const Call = props =>{
                         props.navigation.navigate('UserConformation')}}
 
                 />
+                </Animatable.View>
+                <Animatable.View  animation='zoomIn'>
                 <CallButton
                     image={require('../../assets/images/md_img.png')}
                     title='Speak to Phychiatrist (BH)'
@@ -41,6 +46,7 @@ const Call = props =>{
                     onSelect={()=>{setSelectedCat('speakToPhychiatrist')
                         props.navigation.navigate('UserConformation')}}
                 />
+            </Animatable.View>
             </View>
             <Text style={styles.emergencyText}>Connect to Emergency Services anywhere in the world</Text>
         </View>

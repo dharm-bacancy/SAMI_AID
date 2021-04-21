@@ -1,7 +1,7 @@
 import React from 'react';
 import {View,Text, TextInput,ImageBackground,Image,Dimensions,StyleSheet,FlatList,ScrollView} from 'react-native';
 import {useSelector,useDispatch} from 'react-redux';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../../components/button/CustomButton';
 import Colors from '../../constants/Colors';
 import PatientIntake from '../../components/PatientIntake';
 

@@ -2,8 +2,8 @@ import React,{useState} from 'react';
 import {View,Text,TextInput,Image,StyleSheet,Dimensions} from 'react-native';
 import {useSelector} from 'react-redux';
 import Colors from '../../constants/Colors';
-import CustomRedioButton from '../../components/CustomRedioButton';
-import CustomButton from '../../components/CustomButton';
+import CustomRedioButton from '../../components/button/CustomRedioButton';
+import CustomButton from '../../components/button/CustomButton';
 
 const PatientAssessmentTimeScreen = ({navigation,route}) => {
     const [selectedButton, setSelectedButton] = useState('');
